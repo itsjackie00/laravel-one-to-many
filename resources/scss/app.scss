@@ -9,6 +9,345 @@ $fa-font-path: "../fonts/webfonts" !default;
 
 @import '~bootstrap/scss/bootstrap';
 
-h1 {
-    color: $text-color;
+
+
+// Masthead
+$font-family-special: 'Permanent Marker', cursive;
+
+html {
+    height: 100%;
+}
+
+.masthead {
+    position: relative;
+    width: 100%;
+    height: auto;
+    min-height: 35rem;
+    padding: 15rem 0;
+    background: linear-gradient(to bottom,
+        #{fade-out($black, 0.7)} 0%,
+        #{fade-out($black, 0.3)} 75%,
+        $black 100%);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-size: cover;
+    background-image: url();
+
+    h1 {
+        font-family: $font-family-special;
+        font-size: 2.5rem;
+        line-height: 2.5rem;
+        letter-spacing: 0.8rem;
+        position: relative;
+        overflow: hidden;
+        z-index: 2;
+        display: flex;
+        height: 200px;
+
+        // Overlay for the masthead
+        &:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background-color: fade-out($color: $white, $amount: 0.9);
+        }
+    }
+
+    h2 {
+        max-width: 20rem;
+        font-size: 1rem;
+    }
+
+    @include media-breakpoint-up(md) {
+        h1 {
+            font-size: 4rem;
+            line-height: 4rem;
+        }
+    }
+
+    @include media-breakpoint-up(lg) {
+        height: 100vh;
+        padding: 0;
+
+        h1 {
+            font-size: 6.5rem;
+            line-height: 6.5rem;
+            letter-spacing: 0.8rem;
+        }
+
+        h2 {
+            max-width: 30rem;
+            font-size: 1.25rem;
+        }
+    }
+}
+
+
+// 
+// Navbar
+// 
+
+#mainNav {
+    min-height: 3.5rem;
+    background-color: $white;
+
+    .navbar-toggler {
+        font-size: 80%;
+        padding: 0.75rem;
+        color: $primary;
+        border: $border-width solid $primary;
+
+        &:focus {
+            outline: none;
+        }
+    }
+
+    .navbar-brand {
+        color: $black;
+        font-weight: 700;
+        padding: 0.9rem 0;
+    }
+
+    .navbar-nav {
+        .nav-item {
+            &:hover {
+                color: fade($white, 80%);
+                outline: none;
+                background-color: transparent;
+            }
+
+            &:active,
+            &:focus {
+                outline: none;
+                background-color: transparent;
+            }
+        }
+    }
+
+    @include media-breakpoint-up(lg) {
+        padding-top: 0;
+        padding-bottom: 0;
+        border-bottom: none;
+        background-color: transparent;
+        transition: background-color 0.3s ease-in-out;
+
+        .navbar-brand {
+            padding: 0.5rem 0;
+            color: fade-out($black, 0.5);
+        }
+
+        .nav-link {
+            transition: none;
+            padding: 2rem 1.5rem;
+            color: fade-out($black, 0.5);
+
+            &:hover {
+                color: fade-out($white, 0.25);
+            }
+
+            &:active {
+                color: $white;
+            }
+        }
+
+        &.navbar-shrink {
+            background-color: $white;
+
+            .navbar-brand {
+                color: $black;
+            }
+
+            .nav-link {
+                color: $black;
+                padding: 1.5rem 1.5rem 1.25rem;
+                border-bottom: 0.25rem solid transparent;
+
+                &:hover {
+                    color: $primary;
+                }
+
+                &:active {
+                    color: darken($primary, 15%);
+                }
+
+                &.active {
+                    color: $primary;
+                    outline: none;
+                    border-bottom: 0.25rem solid $primary;
+                }
+            }
+        }
+    }
+}
+
+
+// MY MASTHEAD
+.my-masthead {
+    position: relative;
+    overflow: hidden;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 200px;
+
+    // Overlay for the masthead
+    &:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background-color: fade-out($black, 0.15);
+    }
+
+    // Masthead content element
+    .my-masthead-content {
+        position: relative;
+        max-width: 40rem;
+        padding-top: 5rem;
+        padding-bottom: 5rem;
+
+        h1 {
+            font-size: 2.5rem;
+            color: $white;
+        }
+
+        p {
+            font-size: 1.2rem;
+            color: $white;
+
+            strong {
+                font-weight: 700;
+            }
+        }
+
+        // Styling for the signup form input
+        .input-group-newsletter {
+            input {
+                height: auto;
+                width: 100%;
+                font-size: 1rem;
+                padding: 1rem;
+            }
+
+            button {
+                font-size: 0.85rem;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                padding: calc(1rem + 2px);
+            }
+        }
+    }
+}
+
+// Styling for the masthead at the large breakpoint and up
+@include media-breakpoint-up(lg) {
+    .my-masthead {
+        // height: 100%;
+        // width: 75vw;
+        // min-height: 10px;
+        // padding-bottom: 0;
+        height: 1000px;
+        width: 75vw;
+        min-height: 10px;
+        padding-bottom: 0;
+
+        // Adds a skew effect to the masthead overlay
+        &:before {
+            transform: skewX(-9deg);
+            transform-origin: top right;
+        }
+
+        .my-masthead-content {
+            padding-top: 0;
+            padding-bottom: 0;
+            padding-left: 2rem;
+            padding-right: 9rem;
+
+            h1 {
+                font-size: 3.5rem;
+            }
+
+            p {
+                font-size: 1.3rem;
+            }
+
+        }
+    }
+}
+
+// Change the width of the masthead on xl breakpoint and up
+@include media-breakpoint-up(xl) {
+    .my-masthead {
+        width: 65vw;
+    }
+}
+
+// Styling for the background video element
+
+video.bg-video, video.bg-video-dimmer {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    transform: translateX(-50%) translateY(-50%);
+    z-index: 0;
+}
+
+video.bg-video-dimmer {
+    opacity: 0.20; 
+}
+
+// Mobile fallback for touch screen devices which typically
+// do not load HTML video
+
+@media (pointer: coarse) and (hover: none) {
+    body video {
+        display: none;
+    }
+}
+
+// 
+// Social
+// 
+
+// Styling for the social icons
+.social-icons {
+    position: relative;
+    z-index: 2;
+
+    .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        height: 4rem;
+        width: 4rem;
+        border-radius: 100rem;
+    }
+}
+
+// Moves the social icons to the center right of the screen on large screen sizes and up
+@include media-breakpoint-up(lg) {
+    .social-icons {
+        position: absolute;
+        height: 100%;
+        top: 0;
+        right: 2.5rem;
+        width: auto;
+    }
 }
