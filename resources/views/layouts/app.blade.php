@@ -53,7 +53,7 @@
                             <ul class="navbar-nav mr-auto">
                                 @auth
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('projects.index') }}">Progetti</a>
+                                   <a class="nav-link" href="{{ route('projects.index') }}">Progetti</a>
                                 </li>
                                 @endauth
                             </ul>
@@ -62,7 +62,7 @@
                         <ul class="navbar-nav ml-auto">
                             @auth
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('projects.create') }}">Nuovo Progetto</a>
+                               <a class="nav-link" href="{{ route('projects.create') }}">Nuovo Progetto</a>
                             </li>
                             @endauth
                             <!-- Authentication Links -->

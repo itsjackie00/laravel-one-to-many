@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
 // app/Http/Controllers/Admin/ProjectController.php
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Project;
 use Illuminate\Http\Request;
+use App\Models\Type;
 
 class ProjectController extends Controller
 {
@@ -18,42 +18,51 @@ class ProjectController extends Controller
 
     public function create()
     {
-        return view('admin.projects.create');
+        $types = Type::all();
+        return view('admin.projects.create', compact('types'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required|max:255',
-            'description' => 'required',
+            'name' => 'required|string|max:255',
+            'description' => 'required|string',
+            'type_id' => 'nullable|exists:types,id'
         ]);
 
-        Project::create($request->all());
-        // return redirect()-> route('projects.index');
-        return redirect()->route('projects.index')->with('success', 'Progetto creato !');
+        $project = new Project($request->all());
+        $project->save();
+
+        return redirect()->route('admin.projects.index')->with('success', 'Progetto creato con successo.');
     }
 
-    public function show(Project $project)
+    public function show(Project $id)
     {
-        return view('admin.projects.show', compact('project'));
+        $project = Project::with('type')->findOrFail($id);
+        return view('projects.show', compact('project'));
+
     }
 
-    public function edit(Project $project)
+    public function edit(Project $id)
     {
-        return view('admin.projects.edit', compact('project'));
+        $project = Project::findOrFail($id);
+        $types = Type::all();
+        return view('admin.projects.edit', compact('project', 'types'));
     }
 
-    public function update(Request $request, Project $project)
+    public function update(Request $request, $id)
     {
         $request->validate([
-            'title' => 'required|max:255',
-            'description' => 'required',
+            'name' => 'required|string|max:255',
+            'description' => 'required|string',
+            'type_id' => 'nullable|exists:types,id'
         ]);
 
+        $project = Project::findOrFail($id);
         $project->update($request->all());
-        return redirect()->route('projects.index')->with('success', 'Progetto aggiornato !');
-    }
 
+        return redirect()->route('admin.projects.index')->with('success', 'Progetto aggiornato con successo.');
+    }
     public function destroy(Project $project)
     {
         $project->delete();
